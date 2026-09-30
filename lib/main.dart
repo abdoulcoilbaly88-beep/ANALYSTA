@@ -1,88 +1,11 @@
 import 'package:flutter/material.dart';
-void main() => runApp(const AnalystaApp());
-class AnalystaApp extends StatelessWidget {
-  const AnalystaApp({super.key});
-  @override
-  Widget build(BuildContext c) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark().copyWith(scaffoldBackgroundColor: Colors.black),
-      home: const MainScreen(),
-    );
-  }
-}
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
-  @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-class _MainScreenState extends State<MainScreen> {
-  int _index = 0;
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(backgroundColor: const Color(0xFFFFA500), centerTitle: true, title: const Text("ANALYSTA", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold))),
-      body: _index==0 ? const AccueilPage() : _index==1 ? const Center(child: Text("LIVE - Bientôt", style: TextStyle(color: Colors.white70))) : _index==2 ? const AnalysePage() : const Center(child: Text("Stats - Bientôt", style: TextStyle(color: Colors.white70))),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _index,
-        onTap: (i) => setState(() => _index = i),
-        backgroundColor: const Color(0xFF1E1E1E),
-        selectedItemColor: const Color(0xFFFFA500),
-        unselectedItemColor: Colors.grey,
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Accueil"),
-          BottomNavigationBarItem(icon: Icon(Icons.live_tv), label: "Live"),
-          BottomNavigationBarItem(icon: Icon(Icons.analytics), label: "Analyse"),
-          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: "Stats"),
-        ],
-      ),
-    );
-  }
-}
-class AccueilPage extends StatelessWidget {
-  const AccueilPage({super.key});
-  void _showAnalyse(BuildContext context){
-    showDialog(context: context, builder: (_) => AlertDialog(
-      backgroundColor: const Color(0xFF2A2A2A),
-      title: const Text("ANALYSE ANALYSTA", style: TextStyle(color: Color(0xFFFFA500), fontWeight: FontWeight.bold)),
-      content: const Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text("ASEC Mimosas vs Africa Sports", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-        SizedBox(height: 12),
-        Text("• ASEC: 4 victoires sur 5 derniers", style: TextStyle(color: Colors.white70)),
-        Text("• Africa: 2 défaites extérieur", style: TextStyle(color: Colors.white70)),
-        SizedBox(height: 12),
-        Text("PRÉDICTION IA: Victoire ASEC 65%", style: TextStyle(color: Color(0xFFFFA500), fontWeight: FontWeight.bold)),
-        Text("Score: 2-1 | Confiance: 78%", style: TextStyle(color: Colors.green)),
-      ]),
-      actions: [TextButton(onPressed: () => Navigator.pop(context), child: const Text("Fermer", style: TextStyle(color: Color(0xFFFFA500))))],
-    ));
-  }
-  @override
-  Widget build(BuildContext context){
-    return Padding(padding: const EdgeInsets.all(16), child: Container(
-      decoration: BoxDecoration(color: const Color(0xFF1E1E1E), borderRadius: BorderRadius.circular(20)),
-      padding: const EdgeInsets.all(20),
-      child: Column(mainAxisSize: MainAxisSize.min, children: [
-        const Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-          Column(children: [Icon(Icons.shield, size: 60, color: Colors.yellow), Text("ASEC Mimosas", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))]),
-          Text("VS", style: TextStyle(color: Color(0xFFFFA500), fontSize: 24, fontWeight: FontWeight.bold)),
-          Column(children: [Icon(Icons.shield, size: 60, color: Colors.green), Text("Africa Sports", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))]),
-        ]),
-        const SizedBox(height: 20),
-        SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => _showAnalyse(context), style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFFFA500), padding: const EdgeInsets.symmetric(vertical: 14)), child: const Text("Analyser le match", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)))),
-      ]),
-    ));
-  }
-}
-class AnalysePage extends StatelessWidget {
-  const AnalysePage({super.key});
-  @override
-  Widget build(BuildContext context){
-    return ListView(padding: const EdgeInsets.all(16), children: const [
-      Text("Analyses", style: TextStyle(color: Color(0xFFFFA500), fontWeight: FontWeight.bold, fontSize: 18)),
-      SizedBox(height: 10),
-      ListTile(tileColor: Color(0xFF1E1E1E), title: Text("ASEC vs Africa - 65% ASEC", style: TextStyle(color: Colors.white)), subtitle: Text("Confiance 78%", style: TextStyle(color: Colors.green))),
-    ]);
-  }
-}
+void main()=>runApp(const AnalystaApp());
+class AnalystaApp extends StatelessWidget{const AnalystaApp({super.key});@override Widget build(BuildContext c)=>MaterialApp(debugShowCheckedModeBanner:false,theme:ThemeData.dark().copyWith(scaffoldBackgroundColor:const Color(0xFF0A0A0A)),home:const MainScreen());}
+class MainScreen extends StatefulWidget{const MainScreen({super.key});@override State<MainScreen> createState()=>_MainScreenState();}
+class _MainScreenState extends State<MainScreen>{int _i=0;final _p=[const AccueilPage(),const LivePage(),const AnalysePage(),const StatsPage()];@override Widget build(BuildContext context){return Scaffold(appBar:AppBar(backgroundColor:const Color(0xFFFFA500),centerTitle:true,title:const Text("ANALYSTA • WORLD",style:TextStyle(color:Colors.black,fontWeight:FontWeight.w900,letterSpacing:1.2))),body:_p[_i],bottomNavigationBar:BottomNavigationBar(currentIndex:_i,onTap:(i)=>setState(()=>_i=i),backgroundColor:const Color(0xFF111111),selectedItemColor:const Color(0xFFFFA500),unselectedItemColor:Colors.grey,type:BottomNavigationBarType.fixed,items:const[BottomNavigationBarItem(icon:Icon(Icons.home_filled),label:"Accueil"),BottomNavigationBarItem(icon:Icon(Icons.live_tv),label:"Live"),BottomNavigationBarItem(icon:Icon(Icons.analytics),label:"Analyse"),BottomNavigationBarItem(icon:Icon(Icons.bar_chart),label:"Stats")]),);}}
+class Match{final String e1,e2,ligue,heure,score;final int p1,pN,p2,conf;Match(this.e1,this.e2,this.ligue,this.heure,this.p1,this.pN,this.p2,this.conf,this.score);}
+final matchs=[Match("Man City","Arsenal","Premier League","20:45",55,25,20,82,"2-1"),Match("Real Madrid","Barcelone","La Liga","21:00",48,27,25,76,"1-1"),Match("PSG","Marseille","Ligue 1","20:00",60,22,18,85,"2-0"),Match("Inter","AC Milan","Serie A","18:30",45,30,25,79,"1-0"),Match("ASEC","Africa","LONACI","15:30",65,20,15,78,"2-1"),Match("Bayern","Dortmund","Bundesliga","17:30",58,24,18,81,"3-1"),];
+class AccueilPage extends StatelessWidget{const AccueilPage({super.key});void _a(BuildContext c,Match m){showDialog(context:c,builder:(_)=>AlertDialog(backgroundColor:const Color(0xFF1E1E1E),shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(20)),title:Text("${m.e1} vs ${m.e2}",style:const TextStyle(color:Color(0xFFFFA500),fontWeight:FontWeight.bold)),content:Column(mainAxisSize:MainAxisSize.min,crossAxisAlignment:CrossAxisAlignment.start,children:[Text(m.ligue,style:const TextStyle(color:Colors.white70)),const SizedBox(height:12),const Text("ANALYSE AUTONOME:",style:TextStyle(color:Colors.white,fontWeight:FontWeight.bold)),Text("• Contrôle: ${m.e1} ${m.p1}% domination",style:const TextStyle(color:Colors.white70)),const Text("• Pression: Haute intensité",style:TextStyle(color:Colors.white70)),Text("• Fermeté: ${m.pN}% équilibre défensif",style:const TextStyle(color:Colors.white70)),const SizedBox(height:12),Container(padding:const EdgeInsets.all(12),decoration:BoxDecoration(color:const Color(0xFFFFA500).withOpacity(0.15),borderRadius:BorderRadius.circular(12)),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Text("PREDICTION: ${m.p1>m.p2?m.e1:m.p2>m.p1?m.e2:'NUL'} ${m.p1>m.p2?m.p1:m.p2}%",style:const TextStyle(color:Color(0xFFFFA500),fontWeight:FontWeight.w900)),Text("Score: ${m.score} | Confiance: ${m.conf}%",style:const TextStyle(color:Colors.green,fontWeight:FontWeight.bold)),Text("1:${m.p1}% N:${m.pN}% 2:${m.p2}%",style:const TextStyle(color:Colors.white60,fontSize:12))]))]),actions:[TextButton(onPressed:()=>Navigator.pop(c),child:const Text("Fermer",style:TextStyle(color:Color(0xFFFFA500))))]));}@override Widget build(BuildContext context){return ListView.builder(padding:const EdgeInsets.all(12),itemCount:matchs.length,itemBuilder:(_,i){final m=matchs[i];return Container(margin:const EdgeInsets.only(bottom:12),decoration:BoxDecoration(color:const Color(0xFF1E1E1E),borderRadius:BorderRadius.circular(16),border:Border.all(color:const Color(0xFFFFA500).withOpacity(0.2))),child:ListTile(leading:Container(padding:const EdgeInsets.symmetric(horizontal:8,vertical:4),decoration:BoxDecoration(color:const Color(0xFFFFA500),borderRadius:BorderRadius.circular(6)),child:Text(m.ligue.split(" ").first,style:const TextStyle(color:Colors.black,fontWeight:FontWeight.bold,fontSize:9))),title:Text("${m.e1} vs ${m.e2}",style:const TextStyle(color:Colors.white,fontWeight:FontWeight.bold)),subtitle:Text("${m.heure} • Conf ${m.conf}%",style:const TextStyle(color:Colors.white54,fontSize:12)),trailing:ElevatedButton(onPressed:()=>_a(context,m),style:ElevatedButton.styleFrom(backgroundColor:const Color(0xFFFFA500),minimumSize:const Size(70,32)),child:const Text("Analyser",style:TextStyle(color:Colors.black,fontSize:11,fontWeight:FontWeight.bold)))));});}}
+class LivePage extends StatelessWidget{const LivePage({super.key});@override Widget build(BuildContext c){return ListView(padding:const EdgeInsets.all(12),children:[Container(padding:const EdgeInsets.all(16),decoration:BoxDecoration(color:const Color(0xFFFFA500).withOpacity(0.1),borderRadius:BorderRadius.circular(12)),child:const Row(children:[Icon(Icons.circle,color:Colors.red,size:12),SizedBox(width:8),Text("LIVE • 3 MATCHS",style:TextStyle(color:Color(0xFFFFA500),fontWeight:FontWeight.bold))])),const SizedBox(height:12),...matchs.take(3).map((m)=>Card(color:const Color(0xFF1E1E1E),child:ListTile(title:Text("${m.e1} ${m.score} ${m.e2}",style:const TextStyle(color:Colors.white,fontWeight:FontWeight.bold)),subtitle:Text(m.ligue,style:const TextStyle(color:Colors.white54)),trailing:const Text("78'",style:TextStyle(color:Colors.red,fontWeight:FontWeight.bold))))),]);}}
+class AnalysePage extends StatelessWidget{const AnalysePage({super.key});@override Widget build(BuildContext c){return ListView(padding:const EdgeInsets.all(16),children:const[Text("CENTRE MONDIAL",style:TextStyle(color:Color(0xFFFFA500),fontWeight:FontWeight.w900,fontSize:16)),SizedBox(height:12),Text("Autonome • Contrôle ferme • Analyse pression",style:TextStyle(color:Colors.white54)),SizedBox(height:20),Card(color:Color(0xFF1E1E1E),child:ListTile(title:Text("Précision IA: 84.2%",style:TextStyle(color:Colors.green,fontWeight:FontWeight.bold)),subtitle:Text("1,247 matchs analysés",style:TextStyle(color:Colors.white54))))]);}}
+class StatsPage extends StatelessWidget{const StatsPage({super.key});@override Widget build(BuildContext c)=>const Center(child:Text("STATS GLOBALES\nBientôt",textAlign:TextAlign.center,style:TextStyle(color:Colors.white54)));}
