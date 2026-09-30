@@ -1,11 +1,85 @@
 import 'package:flutter/material.dart';
-void main(){runApp(AnalystaApp());}
-class AnalystaApp extends StatelessWidget{
-@override Widget build(BuildContext c){return MaterialApp(debugShowCheckedModeBanner:false,home:AccueilPage());}}
-class AccueilPage extends StatefulWidget{@override _AccueilPageState createState()=>_AccueilPageState();}
-class _AccueilPageState extends State<AccueilPage>{
-int _index=0;
-final pages=[MatchsPage(),Center(child:Text("Live bientot")),Center(child:Text("Analyse bientot")),Center(child:Text("Stats bientot"))];
-@override Widget build(BuildContext context){return Scaffold(backgroundColor:Colors.grey[100],appBar:AppBar(backgroundColor:Colors.white,title:Text("ANALYSTA",style:TextStyle(color:Colors.orange,fontWeight:FontWeight.bold)),centerTitle:true),body:pages[_index],bottomNavigationBar:BottomNavigationBar(currentIndex:_index,onTap:(i)=>setState(()=>_index=i),selectedItemColor:Colors.orange,unselectedItemColor:Colors.grey,type:BottomNavigationBarType.fixed,items:[BottomNavigationBarItem(icon:Icon(Icons.home),label:"Accueil"),BottomNavigationBarItem(icon:Icon(Icons.live_tv),label:"Live"),BottomNavigationBarItem(icon:Icon(Icons.analytics),label:"Analyse"),BottomNavigationBarItem(icon:Icon(Icons.bar_chart),label:"Stats")]));}}
-class MatchsPage extends StatelessWidget{
-@override Widget build(BuildContext c){return Padding(padding:EdgeInsets.all(16),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Text("Prochains Matchs",style:TextStyle(fontSize:20,fontWeight:FontWeight.bold)),SizedBox(height:16),Container(padding:EdgeInsets.all(16),decoration:BoxDecoration(color:Colors.white,borderRadius:BorderRadius.circular(12)),child:Column(children:[Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children:[Text("ASEC Mimosas",style:TextStyle(fontWeight:FontWeight.bold)),Text("VS",style:TextStyle(color:Colors.orange)),Text("Africa Sports",style:TextStyle(fontWeight:FontWeight.bold))]),SizedBox(height:12),Text("Ligue 1 CI - 15:30",style:TextStyle(color:Colors.grey)),SizedBox(height:16),SizedBox(width:double.infinity,child:ElevatedButton(onPressed:(){},style:ElevatedButton.styleFrom(backgroundColor:Colors.orange),child:Text("Analyser le match",style:TextStyle(color:Colors.white))))]))]));}}
+
+void main() => runApp(AnalystaApp());
+
+class AnalystaApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: Color(0xFF121212),
+        primaryColor: Color(0xFFFF9C00),
+      ),
+      home: HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _index = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xFFFF9C00),
+        title: Text("ANALYSTA", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+        centerTitle: true,
+      ),
+      body: _index == 0 ? buildAccueil() : Center(child: Text("Bientôt disponible", style: TextStyle(color: Colors.white))),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Color(0xFF1E1E1E),
+        selectedItemColor: Color(0xFFFF9C00),
+        unselectedItemColor: Colors.grey,
+        currentIndex: _index,
+        onTap: (i) => setState(() => _index = i),
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Accueil"),
+          BottomNavigationBarItem(icon: Icon(Icons.live_tv), label: "Live"),
+          BottomNavigationBarItem(icon: Icon(Icons.analytics), label: "Analyse"),
+          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: "Stats"),
+        ],
+      ),
+    );
+  }
+
+  Widget buildAccueil() {
+    return Padding(
+      padding: EdgeInsets.all(16),
+      child: Column(
+        children: [
+          SizedBox(height: 20),
+          Container(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(color: Color(0xFF1E1E1E), borderRadius: BorderRadius.circular(15)),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Column(children: [Icon(Icons.shield, size: 50, color: Colors.yellow), SizedBox(height: 8), Text("ASEC Mimosas", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))]),
+                    Text("VS", style: TextStyle(color: Color(0xFFFF9C00), fontSize: 20, fontWeight: FontWeight.bold)),
+                    Column(children: [Icon(Icons.shield, size: 50, color: Colors.green), SizedBox(height: 8), Text("Africa Sports", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))]),
+                  ],
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: Color(0xFFFF9C00), minimumSize: Size(double.infinity, 50), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                  onPressed: () {},
+                  child: Text("Analyser le match", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16)),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
