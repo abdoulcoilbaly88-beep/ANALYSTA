@@ -1,28 +1,155 @@
 import 'package:flutter/material.dart';
 void main()=>runApp(const AnalystaApp());
-class AnalystaApp extends StatelessWidget{const AnalystaApp({super.key});@override Widget build(BuildContext context){return MaterialApp(debugShowCheckedModeBanner:false,title:"ANALYSTA",theme:ThemeData.dark().copyWith(scaffoldBackgroundColor:const Color(0xFF0F0F0F),appBarTheme:const AppBarTheme(backgroundColor:Color(0xFF1E1E1E))),home:const Home());}}
+class AnalystaApp extends StatelessWidget{
+  const AnalystaApp({super.key});
+  @override Widget build(BuildContext context){
+    return MaterialApp(debugShowCheckedModeBanner:false,title:"ANALYSTA",theme:ThemeData.dark().copyWith(scaffoldBackgroundColor:const Color(0xFF0F0F0F)),home:const Home());
+  }
+}
 class Home extends StatefulWidget{const Home({super.key});@override State<Home> createState()=>_HomeState();}
-class _HomeState extends State<Home>{int i=0;final pages=[const MatchsPage(),const FavorisPage(),const ExplorerPage(),const TransfertsPage(),const InfosPage()];@override Widget build(BuildContext context){return Scaffold(body:pages[i],bottomNavigationBar:BottomNavigationBar(currentIndex:i,onTap:(v)=>setState(()=>i=v),type:BottomNavigationBarType.fixed,backgroundColor:const Color(0xFF1E1E1E),selectedItemColor:const Color(0xFF1DBE60),unselectedItemColor:Colors.grey,items:const[BottomNavigationBarItem(icon:Icon(Icons.sports_soccer),label:"Matchs"),BottomNavigationBarItem(icon:Icon(Icons.star),label:"Favoris"),BottomNavigationBarItem(icon:Icon(Icons.explore),label:"Explorer"),BottomNavigationBarItem(icon:Icon(Icons.swap_horiz),label:"Transferts"),BottomNavigationBarItem(icon:Icon(Icons.info),label:"Infos")]));}}
+class _HomeState extends State<Home>{
+  int i=0;
+  final pages=[const MatchsPage(),const FavorisPage(),const ExplorerPage(),const TransfertsPage(),const InfosPage()];
+  @override Widget build(BuildContext context){
+    return Scaffold(
+      body:pages[i],
+      bottomNavigationBar:BottomNavigationBar(currentIndex:i,onTap:(v)=>setState(()=>i=v),type:BottomNavigationBarType.fixed,backgroundColor:const Color(0xFF1E1E1E),selectedItemColor:const Color(0xFF1DBE60),unselectedItemColor:Colors.grey,
+        items:const[
+          BottomNavigationBarItem(icon:Icon(Icons.sports_soccer),label:"Matchs"),
+          BottomNavigationBarItem(icon:Icon(Icons.star),label:"Favoris"),
+          BottomNavigationBarItem(icon:Icon(Icons.explore),label:"Explorer"),
+          BottomNavigationBarItem(icon:Icon(Icons.swap_horiz),label:"Transferts"),
+          BottomNavigationBarItem(icon:Icon(Icons.info),label:"Infos")
+        ]
+      )
+    );
+  }
+}
 
 Widget flagLogo(String team){
- String t=team.toLowerCase(); String e="⚽"; Color bg=Colors.white; Color fg=Colors.black;
- if(t.contains("somalie")){e="🇸🇴"; bg=const Color(0xFF418FDE);}
- else if(t.contains("côte")||t.contains("ivoire")){e="🇨🇮";}
- else if(t.contains("asec")){e="💛"; bg=const Color(0xFFFFD700);}
- else if(t.contains("africa")){e="💚"; bg=const Color(0xFF008000); fg=Colors.white;}
- else if(t.contains("stella")){e="❤️"; bg=const Color(0xFFB00000); fg=Colors.white;}
- else if(t.contains("san pedro")){e="FC"; bg=Colors.white;}
- else if(t.contains("city")){e="💙"; bg=const Color(0xFF6CABDD);}
- else if(t.contains("arsenal")){e="🔴"; bg=const Color(0xFFEF0107); fg=Colors.white;}
- else if(t.contains("barca")||t.contains("barcelona")){e="🔵🔴"; bg=const Color(0xFFA50044); fg=Colors.white;}
- else if(t.contains("real")){e="👑"; bg=Colors.white;}
- return Container(width:46,height:46,decoration:BoxDecoration(color:bg,shape:BoxShape.circle,border:Border.all(color:Colors.white24)),child:Center(child:Text(e,style:TextStyle(fontWeight:FontWeight.bold,fontSize:team.length>10?14:20,color:fg)))));
+  String t=team.toLowerCase();
+  String e="⚽";
+  Color bg=Colors.white;
+  Color fg=Colors.black;
+  double fs=20;
+  if(t.contains("somalie")){e="🇸🇴";bg=const Color(0xFF418FDE);}
+  else if(t.contains("ivoire")||t.contains("cote")){e="🇨🇮";}
+  else if(t.contains("asec")){e="💛";bg=const Color(0xFFFFD700);}
+  else if(t.contains("africa")){e="💚";bg=const Color(0xFF008000);fg=Colors.white;}
+  else if(t.contains("stella")){e="❤️";bg=const Color(0xFFB00000);fg=Colors.white;}
+  else if(t.contains("san pedro")){e="FC";bg=Colors.white;fs=14;}
+  else if(t.contains("city")){e="💙";bg=const Color(0xFF6CABDD);}
+  else if(t.contains("arsenal")){e="🔴";bg=const Color(0xFFEF0107);fg=Colors.white;}
+  else if(t.contains("barca")||t.contains("barcelona")){e="🔵🔴";bg=const Color(0xFFA50044);fg=Colors.white;fs=12;}
+  return Container(width:46,height:46,decoration:BoxDecoration(color:bg,shape:BoxShape.circle,border:Border.all(color:Colors.white24)),child:Center(child:Text(e,style:TextStyle(fontWeight:FontWeight.bold,fontSize:fs,color:fg))));
 }
-Widget matchTile(String t1,String score,String t2)=>Container(padding:const EdgeInsets.symmetric(vertical:14,horizontal:10),decoration:const BoxDecoration(border:Border(top:BorderSide(color:Colors.white10))),child:Row(children:[Expanded(child:Text(t1,textAlign:TextAlign.right,style:const TextStyle(fontSize:14))),const SizedBox(width:8),flagLogo(t1),const SizedBox(width:10),SizedBox(width:60,child:Text(score,textAlign:TextAlign.center,style:const TextStyle(fontWeight:FontWeight.bold))),const SizedBox(width:10),flagLogo(t2),const SizedBox(width:8),Expanded(child:Text(t2,style:const TextStyle(fontSize:14)))]));
-Widget section(String title,List<Widget> matches)=>Container(margin:const EdgeInsets.only(bottom:10),decoration:BoxDecoration(color:const Color(0xFF1E1E1E),borderRadius:BorderRadius.circular(12)),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Padding(padding:const EdgeInsets.all(12),child:Text(title,style:const TextStyle(fontSize:12,fontWeight:FontWeight.bold,letterSpacing:1))),...matches]));
 
-class MatchsPage extends StatelessWidget{const MatchsPage({super.key});@override Widget build(BuildContext context){return Column(children:[Container(color:const Color(0xFF1E1E1E),padding:const EdgeInsets.only(top:40,left:16,right:16,bottom:12),child:Row(children:[const Text("ANALYSTA",style:TextStyle(fontWeight:FontWeight.bold,fontSize:18,letterSpacing:1)),const Spacer(),Container(padding:const EdgeInsets.symmetric(horizontal:10,vertical:4),decoration:BoxDecoration(color:const Color(0xFF1DBE60),borderRadius:BorderRadius.circular(20)),child:const Text("LIVE",style:TextStyle(fontSize:10,fontWeight:FontWeight.bold)))])),Expanded(child:ListView(padding:const EdgeInsets.all(10),children:[Container(padding:const EdgeInsets.all(14),decoration:BoxDecoration(gradient:const LinearGradient(colors:[Color(0xFF1DBE60),Color(0xFF0E8A43)]),borderRadius:BorderRadius.circular(12)),child:const Row(children:[Text("🇨🇮",style:TextStyle(fontSize:22)),SizedBox(width:8),Text("ANALYSTA V24 FINALE - OFFLINE",style:TextStyle(fontWeight:FontWeight.bold))])),const SizedBox(height:10),section("⭐ FAVORIS - CÔTE D'IVOIRE",[matchTile("Somalie","0 - 2\nTF","Côte d'Ivoire")]),section("🇨🇮 LONACI LIGUE 1",[matchTile("ASEC Mimosas","15:30","Africa Sport"),matchTile("Stella Club","15:30","FC San Pedro"),matchTile("Racing Club","18:00","LYS Sassandra")]),section("🏴󠁧󠁢󠁥󠁮󠁧󠁿 PREMIER LEAGUE",[matchTile("Man City","18:30","Arsenal"),matchTile("Liverpool","21:00","Chelsea")]),section("🇪🇸 LA LIGA",[matchTile("FC Barcelona","20:00","Real Madrid")])]))]);}}
-class FavorisPage extends StatelessWidget{const FavorisPage({super.key});@override Widget build(BuildContext context){return Scaffold(appBar:AppBar(title:const Text("Mes Favoris ⭐")),body:GridView.count(crossAxisCount:3,padding:const EdgeInsets.all(16),mainAxisSpacing:16,crossAxisSpacing:16,children:["Côte d'Ivoire","Somalie","ASEC Mimosas","Africa Sport","FC Barcelona","Man City"].map((n)=>Column(children:[flagLogo(n),const SizedBox(height:8),Text(n,textAlign:TextAlign.center,style:const TextStyle(fontSize:12))])).toList()));}}
-class ExplorerPage extends StatelessWidget{const ExplorerPage({super.key});@override Widget build(BuildContext context){return Scaffold(appBar:AppBar(title:const Text("Explorer 🌍")),body:ListView(children:[for(var c in ["Côte d'Ivoire 🇨🇮","France 🇫🇷","Angleterre 🏴󠁧󠁢󠁥󠁮󠁧󠁿","Espagne 🇪🇸","Somalie 🇸🇴"]) ListTile(leading:flagLogo(c),title:Text(c),trailing:const Icon(Icons.chevron_right))])) ;}}
-class TransfertsPage extends StatelessWidget{const TransfertsPage({super.key});@override Widget build(BuildContext context){return Scaffold(appBar:AppBar(title:const Text("Transferts 🔄")),body:const Center(child:Text("Marché LONACI + Europe\nBientôt...")));}}
-class InfosPage extends StatelessWidget{const InfosPage({super.key});@override Widget build(BuildContext context){return Scaffold(appBar:AppBar(title:const Text("Infos")),body:Center(child:Column(mainAxisAlignment:MainAxisAlignment.center,children:[flagLogo("Côte d'Ivoire"),const SizedBox(height:12),const Text("ANALYSTA V24",style:TextStyle(fontSize:22,fontWeight:FontWeight.bold)),const Text("By Abdoul - Abidjan 🇨🇮"),const SizedBox(height:10),const Text("100% Offline - 5 onglets - Vrais Drapeaux",style:TextStyle(color:Colors.grey))]))));}}
+Widget matchTile(String t1,String score,String t2){
+  return Container(padding:const EdgeInsets.symmetric(vertical:14,horizontal:10),decoration:const BoxDecoration(border:Border(top:BorderSide(color:Colors.white10))),child:Row(children:[Expanded(child:Text(t1,textAlign:TextAlign.right,style:const TextStyle(fontSize:14))),const SizedBox(width:8),flagLogo(t1),const SizedBox(width:10),SizedBox(width:60,child:Text(score,textAlign:TextAlign.center,style:const TextStyle(fontWeight:FontWeight.bold))),const SizedBox(width:10),flagLogo(t2),const SizedBox(width:8),Expanded(child:Text(t2,style:const TextStyle(fontSize:14)))]));
+}
+
+Widget section(String title,List<Widget> matches){
+  return Container(margin:const EdgeInsets.only(bottom:10),decoration:BoxDecoration(color:const Color(0xFF1E1E1E),borderRadius:BorderRadius.circular(12)),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Padding(padding:const EdgeInsets.all(12),child:Text(title,style:const TextStyle(fontSize:12,fontWeight:FontWeight.bold))),...matches]));
+}
+
+class MatchsPage extends StatelessWidget{
+  const MatchsPage({super.key});
+  @override Widget build(BuildContext context){
+    return Column(children:[
+      Container(color:const Color(0xFF1E1E1E),padding:const EdgeInsets.only(top:40,left:16,right:16,bottom:12),child:Row(children:[const Text("ANALYSTA",style:TextStyle(fontWeight:FontWeight.bold,fontSize:18)),const Spacer(),Container(padding:const EdgeInsets.symmetric(horizontal:10,vertical:4),decoration:BoxDecoration(color:const Color(0xFF1DBE60),borderRadius:BorderRadius.circular(20)),child:const Text("LIVE",style:TextStyle(fontSize:10,fontWeight:FontWeight.bold))) ])),
+      Expanded(child:ListView(padding:const EdgeInsets.all(10),children:[
+        Container(padding:const EdgeInsets.all(14),decoration:BoxDecoration(color:const Color(0xFF1DBE60),borderRadius:BorderRadius.circular(12)),child:const Text("ANALYSTA V24.1 FINALE - OFFLINE 🇨🇮🇸🇴",style:TextStyle(fontWeight:FontWeight.bold))),
+        const SizedBox(height:10),
+        section("FAVORIS - COTE D'IVOIRE 🇨🇮",[matchTile("Somalie","0 - 2\nTF","Côte d'Ivoire")]),
+        section("LONACI LIGUE 1 🇨🇮",[matchTile("ASEC Mimosas","15:30","Africa Sport"),matchTile("Stella Club","15:30","FC San Pedro")]),
+        section("PREMIER LEAGUE",[matchTile("Man City","18:30","Arsenal")]),
+      ]))
+    ]);
+  }
+}
+class FavorisPage extends StatelessWidget{const FavorisPage({super.key});@override Widget build(BuildContext context){return Scaffold(appBar:AppBar(title:const Text("Mes Favoris")),body:GridView.count(crossAxisCount:3,padding:const EdgeInsets.all(16),children:["Côte d'Ivoire","Somalie","ASEC Mimosas","Africa Sport","FC Barcelona","Man City"].map((n)=>Column(children:[flagLogo(n),const SizedBox(height:8),Text(n,textAlign:TextAlign.center,style:const TextStyle(fontSize:12))])).toList()));}}
+class ExplorerPage extends StatelessWidget{const ExplorerPage({super.key});@override Widget build(BuildContext context){return Scaffold(appBar:AppBar(title:const Text("Explorer")),body:ListView(children:[for(var c in ["Côte d'Ivoire 🇨🇮","France 🇫🇷","Angleterre 🏴󠁧󠁢󠁥󠁮󠁧󠁿","Espagne 🇪🇸","Somalie 🇸🇴"]) ListTile(leading:flagLogo(c),title:Text(c),trailing:const Icon(Icons.chevron_right))])) ;}}
+class TransfertsPage extends StatelessWidget{const TransfertsPage({super.key});@override Widget build(BuildContext context){return Scaffold(appBar:AppBar(title:const Text("Transferts")),body:const Center(child:Text("Marché LONACI + Europe")));}}
+class InfosPage extends StatelessWidget{
+  const InfosPage({super.key});
+  @override Widget build(BuildContext context){
+    return Scaffold(appBar:AppBar(title:const Text("Infos")),body:Center(child:Column(mainAxisAlignment:MainAxisAlignment.center,children:[flagLogo("Côte d'Ivoire"),const SizedBox(height:12),const Text("ANALYSTA V24.1",style:TextStyle(fontSize:22,fontWeight:FontWeight.bold)),const Text("By Abdoul - Abidjan 🇨🇮"),const SizedBox(height:10),const Text("100% Offline",style:TextStyle(color:Colors.grey))])) );
+  }
+}import 'package:flutter/material.dart';
+void main()=>runApp(const AnalystaApp());
+class AnalystaApp extends StatelessWidget{
+  const AnalystaApp({super.key});
+  @override Widget build(BuildContext context){
+    return MaterialApp(debugShowCheckedModeBanner:false,title:"ANALYSTA",theme:ThemeData.dark().copyWith(scaffoldBackgroundColor:const Color(0xFF0F0F0F)),home:const Home());
+  }
+}
+class Home extends StatefulWidget{const Home({super.key});@override State<Home> createState()=>_HomeState();}
+class _HomeState extends State<Home>{
+  int i=0;
+  final pages=[const MatchsPage(),const FavorisPage(),const ExplorerPage(),const TransfertsPage(),const InfosPage()];
+  @override Widget build(BuildContext context){
+    return Scaffold(
+      body:pages[i],
+      bottomNavigationBar:BottomNavigationBar(currentIndex:i,onTap:(v)=>setState(()=>i=v),type:BottomNavigationBarType.fixed,backgroundColor:const Color(0xFF1E1E1E),selectedItemColor:const Color(0xFF1DBE60),unselectedItemColor:Colors.grey,
+        items:const[
+          BottomNavigationBarItem(icon:Icon(Icons.sports_soccer),label:"Matchs"),
+          BottomNavigationBarItem(icon:Icon(Icons.star),label:"Favoris"),
+          BottomNavigationBarItem(icon:Icon(Icons.explore),label:"Explorer"),
+          BottomNavigationBarItem(icon:Icon(Icons.swap_horiz),label:"Transferts"),
+          BottomNavigationBarItem(icon:Icon(Icons.info),label:"Infos")
+        ]
+      )
+    );
+  }
+}
+
+Widget flagLogo(String team){
+  String t=team.toLowerCase();
+  String e="⚽";
+  Color bg=Colors.white;
+  Color fg=Colors.black;
+  double fs=20;
+  if(t.contains("somalie")){e="🇸🇴";bg=const Color(0xFF418FDE);}
+  else if(t.contains("ivoire")||t.contains("cote")){e="🇨🇮";}
+  else if(t.contains("asec")){e="💛";bg=const Color(0xFFFFD700);}
+  else if(t.contains("africa")){e="💚";bg=const Color(0xFF008000);fg=Colors.white;}
+  else if(t.contains("stella")){e="❤️";bg=const Color(0xFFB00000);fg=Colors.white;}
+  else if(t.contains("san pedro")){e="FC";bg=Colors.white;fs=14;}
+  else if(t.contains("city")){e="💙";bg=const Color(0xFF6CABDD);}
+  else if(t.contains("arsenal")){e="🔴";bg=const Color(0xFFEF0107);fg=Colors.white;}
+  else if(t.contains("barca")||t.contains("barcelona")){e="🔵🔴";bg=const Color(0xFFA50044);fg=Colors.white;fs=12;}
+  return Container(width:46,height:46,decoration:BoxDecoration(color:bg,shape:BoxShape.circle,border:Border.all(color:Colors.white24)),child:Center(child:Text(e,style:TextStyle(fontWeight:FontWeight.bold,fontSize:fs,color:fg))));
+}
+
+Widget matchTile(String t1,String score,String t2){
+  return Container(padding:const EdgeInsets.symmetric(vertical:14,horizontal:10),decoration:const BoxDecoration(border:Border(top:BorderSide(color:Colors.white10))),child:Row(children:[Expanded(child:Text(t1,textAlign:TextAlign.right,style:const TextStyle(fontSize:14))),const SizedBox(width:8),flagLogo(t1),const SizedBox(width:10),SizedBox(width:60,child:Text(score,textAlign:TextAlign.center,style:const TextStyle(fontWeight:FontWeight.bold))),const SizedBox(width:10),flagLogo(t2),const SizedBox(width:8),Expanded(child:Text(t2,style:const TextStyle(fontSize:14)))]));
+}
+
+Widget section(String title,List<Widget> matches){
+  return Container(margin:const EdgeInsets.only(bottom:10),decoration:BoxDecoration(color:const Color(0xFF1E1E1E),borderRadius:BorderRadius.circular(12)),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Padding(padding:const EdgeInsets.all(12),child:Text(title,style:const TextStyle(fontSize:12,fontWeight:FontWeight.bold))),...matches]));
+}
+
+class MatchsPage extends StatelessWidget{
+  const MatchsPage({super.key});
+  @override Widget build(BuildContext context){
+    return Column(children:[
+      Container(color:const Color(0xFF1E1E1E),padding:const EdgeInsets.only(top:40,left:16,right:16,bottom:12),child:Row(children:[const Text("ANALYSTA",style:TextStyle(fontWeight:FontWeight.bold,fontSize:18)),const Spacer(),Container(padding:const EdgeInsets.symmetric(horizontal:10,vertical:4),decoration:BoxDecoration(color:const Color(0xFF1DBE60),borderRadius:BorderRadius.circular(20)),child:const Text("LIVE",style:TextStyle(fontSize:10,fontWeight:FontWeight.bold))) ])),
+      Expanded(child:ListView(padding:const EdgeInsets.all(10),children:[
+        Container(padding:const EdgeInsets.all(14),decoration:BoxDecoration(color:const Color(0xFF1DBE60),borderRadius:BorderRadius.circular(12)),child:const Text("ANALYSTA V24.1 FINALE - OFFLINE 🇨🇮🇸🇴",style:TextStyle(fontWeight:FontWeight.bold))),
+        const SizedBox(height:10),
+        section("FAVORIS - COTE D'IVOIRE 🇨🇮",[matchTile("Somalie","0 - 2\nTF","Côte d'Ivoire")]),
+        section("LONACI LIGUE 1 🇨🇮",[matchTile("ASEC Mimosas","15:30","Africa Sport"),matchTile("Stella Club","15:30","FC San Pedro")]),
+        section("PREMIER LEAGUE",[matchTile("Man City","18:30","Arsenal")]),
+      ]))
+    ]);
+  }
+}
+class FavorisPage extends StatelessWidget{const FavorisPage({super.key});@override Widget build(BuildContext context){return Scaffold(appBar:AppBar(title:const Text("Mes Favoris")),body:GridView.count(crossAxisCount:3,padding:const EdgeInsets.all(16),children:["Côte d'Ivoire","Somalie","ASEC Mimosas","Africa Sport","FC Barcelona","Man City"].map((n)=>Column(children:[flagLogo(n),const SizedBox(height:8),Text(n,textAlign:TextAlign.center,style:const TextStyle(fontSize:12))])).toList()));}}
+class ExplorerPage extends StatelessWidget{const ExplorerPage({super.key});@override Widget build(BuildContext context){return Scaffold(appBar:AppBar(title:const Text("Explorer")),body:ListView(children:[for(var c in ["Côte d'Ivoire 🇨🇮","France 🇫🇷","Angleterre 🏴󠁧󠁢󠁥󠁮󠁧󠁿","Espagne 🇪🇸","Somalie 🇸🇴"]) ListTile(leading:flagLogo(c),title:Text(c),trailing:const Icon(Icons.chevron_right))])) ;}}
+class TransfertsPage extends StatelessWidget{const TransfertsPage({super.key});@override Widget build(BuildContext context){return Scaffold(appBar:AppBar(title:const Text("Transferts")),body:const Center(child:Text("Marché LONACI + Europe")));}}
+class InfosPage extends StatelessWidget{
+  const InfosPage({super.key});
+  @override Widget build(BuildContext context){
+    return Scaffold(appBar:AppBar(title:const Text("Infos")),body:Center(child:Column(mainAxisAlignment:MainAxisAlignment.center,children:[flagLogo("Côte d'Ivoire"),const SizedBox(height:12),const Text("ANALYSTA V24.1",style:TextStyle(fontSize:22,fontWeight:FontWeight.bold)),const Text("By Abdoul - Abidjan 🇨🇮"),const SizedBox(height:10),const Text("100% Offline",style:TextStyle(color:Colors.grey))])) );
+  }
+}
