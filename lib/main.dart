@@ -1,10 +1,4 @@
 import 'package:flutter/material.dart';
-// IMPORTANT: vérifie que ces imports existent bien chez toi
-import 'matchs_page.dart';
-import 'favoris_page.dart';
-import 'explorer_page.dart';
-import 'transferts_page.dart';
-import 'infos_page.dart';
 
 void main() {
   runApp(const AnalystaApp());
@@ -12,7 +6,6 @@ void main() {
 
 class AnalystaApp extends StatelessWidget {
   const AnalystaApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,25 +21,23 @@ class AnalystaApp extends StatelessWidget {
 
 class Home extends StatefulWidget {
   const Home({super.key});
-
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
-
-  final List<Widget> pages = const [
-    MatchsPage(),
-    FavorisPage(),
-    ExplorerPage(),
-    TransfertsPage(),
-    InfosPage(),
+  final pages = const [
+    Center(child: Text("Matchs Page", style: TextStyle(fontSize: 24))),
+    Center(child: Text("Favoris Page", style: TextStyle(fontSize: 24))),
+    Center(child: Text("Explorer Page", style: TextStyle(fontSize: 24))),
+    Center(child: Text("Transferts Page", style: TextStyle(fontSize: 24))),
+    Center(child: Text("Infos Page", style: TextStyle(fontSize: 24))),
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text("ANALYSTA"), backgroundColor: const Color(0xFF1E1E1E), centerTitle: true),
       body: pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
