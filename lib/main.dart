@@ -1,75 +1,289 @@
 import 'package:flutter/material.dart';
-void main()=>runApp(const AnalystaApp());
-class AnalystaApp extends StatelessWidget{
-const AnalystaApp({super.key});
-@override
-Widget build(BuildContext context){
-return MaterialApp(debugShowCheckedModeBanner:false,theme:ThemeData.dark().copyWith(scaffoldBackgroundColor:const Color(0xFF101010)),home:const Home());
+
+void main() => runApp(const AnalystaApp());
+
+class AnalystaApp extends StatelessWidget {
+  const AnalystaApp({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: const Color(0xFF0A0E0A),
+      ),
+      home: const Home(),
+    );
+  }
 }
+
+class Home extends StatefulWidget {
+  const Home({super.key});
+  @override
+  State<Home> createState() => _HomeState();
 }
-class Home extends StatefulWidget{
-const Home({super.key});
-@override
-State<Home>createState()=>_HomeState();
+
+class _HomeState extends State<Home> {
+  void openMatch() {
+    Navigator.push(context, MaterialPageRoute(builder: (_) => const Detail()));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF141A14),
+        title: const Text("ANALYSTA", style: TextStyle(letterSpacing: 2, fontWeight: FontWeight.bold, color: Color(0xFF7CFF7C))),
+        centerTitle: true,
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(12),
+        children: [
+          GestureDetector(
+            onTap: openMatch,
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: const Color(0xFF141A14),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: const Color(0xFF7CFF7C).withOpacity(0.4)),
+                boxShadow: [BoxShadow(color: const Color(0xFF7CFF7C).withOpacity(0.1), blurRadius: 20)],
+              ),
+              child: Column(
+                children: [
+                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                    Column(children: [CircleAvatar(backgroundColor: Colors.blue[900], radius: 24, child: const Text("MCI", style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold))), const SizedBox(height: 6), const Text("MAN CITY", style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))]),
+                    const Column(children: [Text("2 - 1", style: TextStyle(fontSize: 42, fontWeight: FontWeight.bold, color: Color(0xFF7CFF7C))), Text("FT • 90+4\"", style: TextStyle(color: Colors.grey, fontSize: 11))]),
+                    Column(children: [CircleAvatar(backgroundColor: Colors.red[900], radius: 24, child: const Text("ARS", style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold))), const SizedBox(height: 6), const Text("ARSENAL", style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))]),
+                  ]),
+                  const SizedBox(height: 16),
+                  Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+                    Column(children: const [Text("POSSESSION", style: TextStyle(color: Colors.grey, fontSize: 10)), SizedBox(height: 4), Text("58%", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF7CFF7C))), Text("Man City", style: TextStyle(fontSize: 10))]),
+                    Container(width: 1, height: 50, color: Colors.white12),
+                    const Column(children: [Text("xG", style: TextStyle(color: Colors.grey, fontSize: 10)), SizedBox(height: 4), Text("1.82 - 0.91", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)), Text("Expected Goals", style: TextStyle(fontSize: 10, color: Colors.grey))]),
+                    Container(width: 1, height: 50, color: Colors.white12),
+                    Column(children: const [Text("POSSESSION", style: TextStyle(color: Colors.grey, fontSize: 10)), SizedBox(height: 4), Text("42%", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)), Text("Arsenal", style: TextStyle(fontSize: 10))]),
+                  ]),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(color: const Color(0xFF141A14), borderRadius: BorderRadius.circular(16), border: Border.all(color: const Color(0xFF7CFF7C).withOpacity(0.2))),
+            child: Row(children: [Container(width: 36, height: 36, decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: const Color(0xFF7CFF7C)), color: Colors.grey[800]), child: const Icon(Icons.person, size: 20)), const SizedBox(width: 10), const Expanded(child: Text("Erling Haaland • 87' GOAL 2-1 • Tap to view", style: TextStyle(fontSize: 12))), Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4), decoration: BoxDecoration(color: const Color(0xFF7CFF7C), borderRadius: BorderRadius.circular(8)), child: const Text("8.5 MOTM", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 11)))]),
+          ),
+          const SizedBox(height: 12),
+          ElevatedButton(
+            onPressed: openMatch,
+            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF7CFF7C), foregroundColor: Colors.black, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), padding: const EdgeInsets.symmetric(vertical: 14)),
+            child: const Text("VOIR MATCH DETAIL - DESIGN 4+5", style: TextStyle(fontWeight: FontWeight.bold)),
+          )
+        ],
+      ),
+    );
+  }
 }
-class _HomeState extends State<Home>{
-int index=0;
-void openMatch(String h,String a,String s){
-Navigator.push(context,MaterialPageRoute(builder:(_)=>DetailMatch(domicile:h,exterieur:a,score:s)));
+
+class Detail extends StatefulWidget {
+  const Detail({super.key});
+  @override
+  State<Detail> createState() => _DetailState();
 }
-Widget carte(String h,String a,String s,String t,bool live){
-return GestureDetector(onTap:()=>openMatch(h,a,s),child:Container(margin:const EdgeInsets.only(bottom:12),padding:const EdgeInsets.all(16),decoration:BoxDecoration(color:const Color(0xFF1E1E1E),borderRadius:BorderRadius.circular(16),border:Border.all(color:live?const Color(0xFF1DB680):Colors.transparent)),child:Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children:[Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Row(children:[const Icon(Icons.shield,size:18),const SizedBox(width:8),Text(h,style:const TextStyle(fontWeight:FontWeight.bold))]),const SizedBox(height:10),Row(children:[const Icon(Icons.shield_outlined,size:18),const SizedBox(width:8),Text(a,style:const TextStyle(fontWeight:FontWeight.bold))])]),Column(children:[Text(s,style:const TextStyle(fontSize:20,fontWeight:FontWeight.bold)),Container(margin:const EdgeInsets.only(top:4),padding:const EdgeInsets.symmetric(horizontal:8,vertical:2),decoration:BoxDecoration(color:live?Colors.red:Colors.grey[800],borderRadius:BorderRadius.circular(8)),child:Text(t,style:const TextStyle(fontSize:12)))])])));
-}
-Widget matchs(){
-return ListView(padding:const EdgeInsets.all(12),children:[carte("Man City","Arsenal","2 - 1","78'",true),carte("Real Madrid","Barcelone","0 - 0","Mi-temps",true),carte("PSG","Marseille","3 - 0","Terminé",false),carte("Bayern","Dortmund","1 - 2","65'",true),carte("Inter","AC Milan","1 - 1","45'",true)]);
-}
-@override
-Widget build(BuildContext context){
-final pages=[matchs(),const Center(child:Text("⭐ Favoris bientôt")),const Center(child:Text("🌍 Explorer bientôt")),const Center(child:Text("🔄 Transferts bientôt")),const Center(child:Text("ANALYSTA v1.0\nPar Enock\n100% Made in Abidjan"))];
-return Scaffold(appBar:AppBar(title:const Text("ANALYSTA",style:TextStyle(fontWeight:FontWeight.bold,letterSpacing:2)),backgroundColor:const Color(0xFF1E1E1E),centerTitle:true),body:pages[index],bottomNavigationBar:BottomNavigationBar(currentIndex:index,onTap:(v)=>setState(()=>index=v),type:BottomNavigationBarType.fixed,backgroundColor:const Color(0xFF1E1E1E),selectedItemColor:const Color(0xFF1DB680),unselectedItemColor:Colors.grey,items:const[BottomNavigationBarItem(icon:Icon(Icons.sports_soccer),label:"Matchs"),BottomNavigationBarItem(icon:Icon(Icons.star),label:"Favoris"),BottomNavigationBarItem(icon:Icon(Icons.explore),label:"Explorer"),BottomNavigationBarItem(icon:Icon(Icons.swap_horiz),label:"Transferts"),BottomNavigationBarItem(icon:Icon(Icons.info),label:"Infos")]));
-}
-}
-class DetailMatch extends StatefulWidget{
-final String domicile,exterieur,score;
-const DetailMatch({super.key,required this.domicile,required this.exterieur,required this.score});
-@override
-State<DetailMatch>createState()=>_DetailMatchState();
-}
-class _DetailMatchState extends State<DetailMatch> with SingleTickerProviderStateMixin{
-late TabController tab;
-@override
-void initState(){super.initState();tab=TabController(length:3,vsync:this);}
-Widget ligneStat(String t,String h,String a,double hp){
-return Padding(padding:const EdgeInsets.symmetric(vertical:8),child:Column(children:[Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children:[Text(h,style:const TextStyle(fontWeight:FontWeight.bold)),Text(t,style:const TextStyle(color:Colors.grey,fontSize:12)),Text(a,style:const TextStyle(fontWeight:FontWeight.bold))]),const SizedBox(height:4),Row(children:[Expanded(flex:(hp*100).toInt(),child:Container(height:4,decoration:BoxDecoration(color:const Color(0xFF1DB680),borderRadius:BorderRadius.circular(2)))),Expanded(flex:((1-hp)*100).toInt(),child:Container(height:4,decoration:BoxDecoration(color:Colors.grey[800],borderRadius:BorderRadius.circular(2))))])]));
-}
-Widget eventTile(String min,String joueur,String equipe,String score,String type){
-IconData ic=type=="but"?Icons.sports_soccer:Icons.style;
-Color c=type=="but"?Colors.white:type=="jaune"?Colors.yellow:Colors.red;
-return Container(margin:const EdgeInsets.only(bottom:12),padding:const EdgeInsets.all(12),decoration:BoxDecoration(color:Colors.black26,borderRadius:BorderRadius.circular(10)),child:Row(children:[
-Container(width:45,height:28,decoration:BoxDecoration(color:const Color(0xFF2A2A2A),borderRadius:BorderRadius.circular(20)),child:Center(child:Text(min,style:const TextStyle(fontWeight:FontWeight.bold,fontSize:12)))),
-const SizedBox(width:12),
-Container(padding:const EdgeInsets.all(6),decoration:BoxDecoration(color:c.withOpacity(type=="but"?0.2:0.9),shape:BoxShape.circle),child:Icon(ic,size:16,color:type=="but"?Colors.white:type=="jaune"?Colors.black:Colors.white)),
-const SizedBox(width:12),
-Expanded(child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Text(joueur,style:const TextStyle(fontWeight:FontWeight.bold)),Text(equipe,style:const TextStyle(color:Colors.grey,fontSize:11))])),
-Text(score,style:const TextStyle(fontWeight:FontWeight.bold,color:Color(0xFF1DB680)))
-]));
-}
-@override
-Widget build(BuildContext context){
-return Scaffold(appBar:AppBar(title:Text("${widget.domicile} vs ${widget.exterieur}"),backgroundColor:const Color(0xFF1E1E1E),bottom:TabBar(controller:tab,labelColor:const Color(0xFF1DB680),unselectedLabelColor:Colors.grey,indicatorColor:const Color(0xFF1DB680),tabs:const[Tab(text:"Résumé"),Tab(text:"Statistiques"),Tab(text:"Compos")])),body:TabBarView(controller:tab,children:[
-// RESUME V2 PRO
-ListView(padding:const EdgeInsets.all(16),children:[
-Container(padding:const EdgeInsets.all(20),decoration:BoxDecoration(color:const Color(0xFF1E1E1E),borderRadius:BorderRadius.circular(16)),child:Column(children:[Row(mainAxisAlignment:MainAxisAlignment.spaceAround,children:[Column(children:[Container(width:60,height:60,decoration:BoxDecoration(color:Colors.blue[800],shape:BoxShape.circle),child:const Icon(Icons.shield,size:35)),const SizedBox(height:8),Text(widget.domicile,style:const TextStyle(fontWeight:FontWeight.bold))]),Column(children:[Text(widget.score,style:const TextStyle(fontSize:36,fontWeight:FontWeight.bold)),Container(margin:const EdgeInsets.only(top:6),padding:const EdgeInsets.symmetric(horizontal:10,vertical:4),decoration:BoxDecoration(color:Colors.red,borderRadius:BorderRadius.circular(20)),child:const Text("78'",style:TextStyle(fontSize:12,fontWeight:FontWeight.bold)))]),Column(children:[Container(width:60,height:60,decoration:BoxDecoration(color:Colors.red[800],shape:BoxShape.circle),child:const Icon(Icons.shield_outlined,size:35)),const SizedBox(height:8),Text(widget.exterieur,style:const TextStyle(fontWeight:FontWeight.bold))])]),const SizedBox(height:20),const Divider(color:Colors.white10),const SizedBox(height:10),const Align(alignment:Alignment.centerLeft,child:Text("FIL DU MATCH",style:TextStyle(fontWeight:FontWeight.bold,letterSpacing:1,color:Color(0xFF1DB680)))),const SizedBox(height:12),
-eventTile("23'","Haaland","Man City","1-0","but"),
-eventTile("45'","Rice","Arsenal - Faute","","jaune"),
-eventTile("55'","Saka","Arsenal","1-1","but"),
-eventTile("77'","Foden","Man City","2-1","but"),
-eventTile("89'","White","Arsenal - Tacle dangereux","","rouge"),
-]))]),
-// STATS
-ListView(padding:const EdgeInsets.all(16),children:[Container(padding:const EdgeInsets.all(16),decoration:BoxDecoration(color:const Color(0xFF1E1E1E),borderRadius:BorderRadius.circular(12)),child:Column(children:[ligneStat("Possession","58%","42%",0.58),ligneStat("Buts attendus","1.8","0.9",0.66),ligneStat("Tirs","14","8",0.63),ligneStat("Tirs cadrés","6","3",0.66),ligneStat("Corners","7","4",0.63),ligneStat("Attaques dangereuses","52","38",0.57),ligneStat("Fautes","12","15",0.44),ligneStat("Cartons jaunes","2","3",0.4),ligneStat("Cartons rouges","0","1",0.0),ligneStat("Hors-jeu","3","2",0.6)]))]),
-// COMPOS
-ListView(padding:const EdgeInsets.all(16),children:[Container(padding:const EdgeInsets.all(16),decoration:BoxDecoration(color:const Color(0xFF1E1E1E),borderRadius:BorderRadius.circular(12)),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Text(widget.domicile,style:const TextStyle(fontWeight:FontWeight.bold,color:Color(0xFF1DB680))),const SizedBox(height:8),const Text("Ederson; Walker, Dias, Stones, Ake; Rodri, De Bruyne, Bernardo; Foden, Haaland, Grealish"),const SizedBox(height:20),Text(widget.exterieur,style:const TextStyle(fontWeight:FontWeight.bold,color:Color(0xFF1DB680))),const SizedBox(height:8),const Text("Raya; White, Saliba, Gabriel, Zinchenko; Rice, Odegaard, Partey; Saka, Jesus, Martinelli")]))]),
-]));
-}
+
+class _DetailState extends State<Detail> {
+
+  void showPlayerFocus() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => DraggableScrollableSheet(
+        initialChildSize: 0.92,
+        maxChildSize: 0.95,
+        minChildSize: 0.6,
+        builder: (_, controller) => Container(
+          decoration: BoxDecoration(
+            color: const Color(0xFF121A12),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+            border: Border.all(color: const Color(0xFF7CFF7C), width: 1.2),
+          ),
+          child: ListView(
+            controller: controller,
+            padding: const EdgeInsets.all(16),
+            children: [
+              // HEADER PLAYER FOCUS
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: const Color(0xFF1E2E1E), borderRadius: BorderRadius.circular(20), border: Border.all(color: const Color(0xFF7CFF7C).withOpacity(0.5))), child: const Row(children: [Icon(Icons.auto_awesome, color: Color(0xFF7CFF7C), size: 16), SizedBox(width: 6), Text("PLAYER FOCUS", style: TextStyle(color: Color(0xFF7CFF7C), fontWeight: FontWeight.bold, fontSize: 12))])),
+                GestureDetector(onTap: () => Navigator.pop(context), child: Container(padding: const EdgeInsets.all(6), decoration: const BoxDecoration(color: Colors.white12, shape: BoxShape.circle), child: const Icon(Icons.close, size: 18))),
+              ]),
+              const SizedBox(height: 12),
+              // PHOTO + NAME
+              Stack(
+                children: [
+                  Container(
+                    height: 180,
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), color: const Color(0xFF1A2A1A), border: Border.all(color: const Color(0xFF7CFF7C).withOpacity(0.3))),
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 16),
+                        Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.center, children: [
+                          Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3), decoration: BoxDecoration(color: const Color(0xFF1E2E1E), borderRadius: BorderRadius.circular(12), border: Border.all(color: Colors.white24)), child: const Text("MCI • #9", style: TextStyle(fontSize: 11, color: Color(0xFF7CFF7C)))),
+                          const SizedBox(height: 8),
+                          const Text("Erling\nHaaland", style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Color(0xFF7CFF7C), height: 1.1)),
+                          const SizedBox(height: 6),
+                          Container(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4), decoration: BoxDecoration(color: const Color(0xFF1E2E1E), borderRadius: BorderRadius.circular(20), border: Border.all(color: Colors.white24)), child: const Text("Striker", style: TextStyle(fontSize: 11))),
+                          const SizedBox(height: 10),
+                          Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+                            const Text("8.5", style: TextStyle(fontSize: 52, fontWeight: FontWeight.bold, color: Color(0xFF7CFF7C), height: 1)),
+                            const SizedBox(width: 4),
+                            Container(margin: const EdgeInsets.only(bottom: 8), padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3), decoration: BoxDecoration(color: const Color(0xFF7CFF7C), borderRadius: BorderRadius.circular(12)), child: const Row(children: [Icon(Icons.star, size: 12, color: Colors.black), SizedBox(width: 3), Text("MOTM", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 10))])),
+                          ]),
+                        ]),
+                        const Spacer(),
+                        // PHOTO JOUEUR
+                        Container(
+                          width: 150,
+                          height: 180,
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.network("https://resources.premierleague.com/premierleague/photos/players/250x250/p223094.png", fit: BoxFit.cover, errorBuilder: (_, __, ___) => const Icon(Icons.person, size: 80, color: Colors.grey)),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 14),
+              // GRID STATS 4x2
+              GridView.count(
+                crossAxisCount: 4,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                mainAxisSpacing: 8,
+                crossAxisSpacing: 8,
+                childAspectRatio: 0.85,
+                children: [
+                  _statCard("GOALS", "2", Icons.sports_soccer),
+                  _statCard("SHOTS", "3", Icons.my_location),
+                  _statCard("xG", "", Icons.bubble_chart, small: "0.78"),
+                  _statCard("xA", "0.70", Icons.bar_chart),
+                  _statCard("PASSES", "78%", Icons.grid_view),
+                  _statCard("KEY PASSES", "1", Icons.my_location),
+                  _statCard("DRIBBLES", "1/1", Icons.bubble_chart),
+                  _statCard("TOUCHES", "28", Icons.bar_chart),
+                ],
+              ),
+              const SizedBox(height: 8),
+              const Center(child: Text("85 min played • 89% performance • 3 duels won", style: TextStyle(color: Color(0xFF7CFF7C), fontSize: 11))),
+              const SizedBox(height: 6),
+              Row(children: [const Text("Performance", style: TextStyle(fontSize: 11, color: Colors.grey)), const SizedBox(width: 8), Expanded(child: ClipRRect(borderRadius: BorderRadius.circular(10), child: LinearProgressIndicator(value: 0.84, backgroundColor: Colors.white12, color: const Color(0xFF7CFF7C), minHeight: 6))), const SizedBox(width: 8), const Text("84%", style: TextStyle(color: Color(0xFF7CFF7C), fontSize: 11, fontWeight: FontWeight.bold))]),
+              const SizedBox(height: 18),
+              // DETAILED STATS
+              Container(
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(color: const Color(0xFF0F150F), borderRadius: BorderRadius.circular(14), border: Border.all(color: const Color(0xFF7CFF7C).withOpacity(0.4))),
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [const Text("PLAYER DETAILED STATS", style: TextStyle(color: Color(0xFF7CFF7C), fontWeight: FontWeight.bold, fontSize: 13)), GestureDetector(onTap: () => Navigator.pop(context), child: Container(padding: const EdgeInsets.all(4), decoration: BoxDecoration(border: Border.all(color: const Color(0xFF7CFF7C)), borderRadius: BorderRadius.circular(6)), child: const Icon(Icons.close, size: 16, color: Color(0xFF7CFF7C))))]),
+                  const SizedBox(height: 12),
+                  _bar("Attack", "Expected Goals (xG)", "78%", 0.78),
+                  _bar("", "Goal Conversion", "67%", 0.67),
+                  _bar("", "Shot On Target", "2/3", 0.67, showValueRight: true),
+                  const SizedBox(height: 10),
+                  _bar("Passing", "Pass Accuracy", "78%", 0.78),
+                  const SizedBox(height: 10),
+                  const Text("Playmaking", style: TextStyle(color: Color(0xFF7CFF7C), fontSize: 11, fontWeight: FontWeight.bold)),
+                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: const [Text("Key Passes 1 • Big Chances Created", style: TextStyle(fontSize: 11)), Text("1", style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))]),
+                  const SizedBox(height: 10),
+                  const Text("Other", style: TextStyle(color: Color(0xFF7CFF7C), fontSize: 11, fontWeight: FontWeight.bold)),
+                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: const [Text("Dribbles 1/1 • Duels Won 3/5 • Fouls", style: TextStyle(fontSize: 11)), Text("0", style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))]),
+                  const SizedBox(height: 16),
+                  SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => Navigator.pop(context), style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF7CFF7C), foregroundColor: Colors.black, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))), child: const Text("Close", style: TextStyle(fontWeight: FontWeight.bold)))),
+                ]),
+              ),
+              const SizedBox(height: 10),
+              const Center(child: Text("Live Data • Opta Stats • Updated 21:47 GMT • 23 Oct 2024", style: TextStyle(color: Colors.grey, fontSize: 9))),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _statCard(String title, String value, IconData icon, {String small = ""}) {
+    return Container(
+      decoration: BoxDecoration(color: const Color(0xFF1A251A), borderRadius: BorderRadius.circular(10), border: Border.all(color: const Color(0xFF7CFF7C).withOpacity(0.6))),
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Icon(icon, color: const Color(0xFF7CFF7C), size: 20),
+        const SizedBox(height: 4),
+        Text(title, style: const TextStyle(fontSize: 8, color: Colors.grey, fontWeight: FontWeight.bold)),
+        Text(value.isEmpty? small : value, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF7CFF7C))),
+        if (small.isNotEmpty && value.isNotEmpty) Text(small, style: const TextStyle(fontSize: 10, color: Color(0xFF7CFF7C))),
+      ]),
+    );
+  }
+
+  Widget _bar(String section, String label, String val, double pct, {bool showValueRight = false}) {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      if (section.isNotEmpty) Text(section, style: const TextStyle(color: Color(0xFF7CFF7C), fontSize: 11, fontWeight: FontWeight.bold)),
+      const SizedBox(height: 2),
+      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text(label, style: const TextStyle(fontSize: 11)), Text(val, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))]),
+      const SizedBox(height: 4),
+      ClipRRect(borderRadius: BorderRadius.circular(10), child: LinearProgressIndicator(value: pct, backgroundColor: Colors.white12, color: const Color(0xFF7CFF7C), minHeight: 6)),
+      const SizedBox(height: 8),
+    ]);
+  }
+
+  Widget timelineItem(String minute, String name, String detail) {
+    return GestureDetector(
+      onTap: showPlayerFocus,
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(color: const Color(0xFF141A14), borderRadius: BorderRadius.circular(12), border: Border.all(color: Colors.white10)),
+        child: Row(children: [
+          Container(width: 40, height: 40, decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: const Color(0xFF7CFF7C)), color: Colors.grey[800]), child: const Icon(Icons.person, size: 20)),
+          const SizedBox(width: 10),
+          Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Row(children: [Container(padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2), decoration: BoxDecoration(color: const Color(0xFF7CFF7C), borderRadius: BorderRadius.circular(6)), child: Text(minute, style: const TextStyle(color: Colors.black, fontSize: 10, fontWeight: FontWeight.bold))), const SizedBox(width: 6), Text(name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))]), Text(detail, style: const TextStyle(color: Colors.grey, fontSize: 10)), const Text("Tap to view →", style: TextStyle(color: Color(0xFF7CFF7C), fontSize: 9))])),
+          const Text("1-0", style: TextStyle(color: Color(0xFF7CFF7C), fontWeight: FontWeight.bold)),
+        ]),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(backgroundColor: const Color(0xFF141A14), title: const Text("MATCH DETAIL", style: TextStyle(color: Color(0xFF7CFF7C), fontSize: 14, fontWeight: FontWeight.bold)), centerTitle: true),
+      body: ListView(
+        padding: const EdgeInsets.all(12),
+        children: [
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(color: const Color(0xFF141A14), borderRadius: BorderRadius.circular(16), border: Border.all(color: const Color(0xFF7CFF7C).withOpacity(0.3))),
+            child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Column(children: [CircleAvatar(backgroundColor: Colors.blue[900], radius: 22, child: const Text("MCI")), const Text("MAN CITY", style: TextStyle(fontSize: 10))]),
+              const Column(children: [Text("2 - 1", style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold, color: Color(0xFF7CFF7C))), Text("FT • 90+4\"", style: TextStyle(fontSize: 10, color: Colors.grey))]),
+              Column(children: [CircleAvatar(backgroundColor: Colors.red[900], radius: 22, child: const Text("ARS")), const Text("ARSENAL", style: TextStyle(fontSize: 10))]),
+            ]),
+          ),
+          const SizedBox(height: 12),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: const [
+            Text("POSSESSION 58%", style: TextStyle(color: Color(0xFF7CFF7C), fontWeight: FontWeight.bold, fontSize: 11)),
+            Text("xG 1.82 - 0.91", style: TextStyle(fontSize: 11)),
+            Text("42%", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)),
+          ]),
+          const SizedBox(height: 12),
+          const Text("MATCH TIMELINE - Tap player", style: TextStyle(color: Color(0xFF7CFF7C), fontWeight: FontWeight.bold, fontSize: 11)),
+          const SizedBox(height: 8),
+          timelineItem("87'", "Erling Haaland", "GOAL • 2-1 • Assist: Kevin De Bruyne"),
+          timelineItem("45+2'", "Phil Foden", "GOAL • 1-1 • Assist: Bernardo Silva"),
+          timelineItem("12'", "Saka", "GOAL • 0-1 • Arsenal #7"),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(onPressed: showPlayerFocus, backgroundColor: const Color(0xFF7CFF7C), label: const Text("PLAYER FOCUS - TEST", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)), icon: const Icon(Icons.person, color: Colors.black)),
+    );
+  }
 }
