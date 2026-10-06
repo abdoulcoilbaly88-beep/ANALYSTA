@@ -4,69 +4,88 @@ void main() => runApp(const MaterialApp(debugShowCheckedModeBanner: false, home:
 
 class Analysta extends StatefulWidget {
   const Analysta({super.key});
-  @override
-  State<Analysta> createState() => _AnalystaState();
+  @override State<Analysta> createState() => _AnalystaState();
 }
 
 class _AnalystaState extends State<Analysta> {
   String q = "";
-  final all = [
-    {"n":"Julian Whappert","p":"REAL #9","s":"9.0","g":"3","a":"5","t":"B2B","r":"33","st":"1"},
-    {"n":"Lionel Messi","p":"MIA #10","s":"9.3","g":"4","a":"6","t":"B2B","r":"91%","st":"1"},
-    {"n":"Erling Haaland","p":"MCI #9","s":"8.9","g":"5","a":"1","t":"FIN","r":"78%","st":"1"},
-    {"n":"Cristiano Ronaldo","p":"NOR #7","s":"8.8","g":"3","a":"2","t":"B2X","r":"83%","st":"1"},
-    {"n":"Lamine Yamal","p":"BAR #19","s":"8.8","g":"2","a":"3","t":"DRI","r":"89%","st":"1"},
-    {"n":"Vinicius Jr","p":"REAL #7","s":"8.7","g":"3","a":"2","t":"DRI","r":"85%","st":"1"},
-    {"n":"Jude Bellingham","p":"REAL #5","s":"8.6","g":"2","a":"4","t":"BOX","r":"87%","st":"1"},
-    {"n":"Bukayo Saka","p":"ARS #7","s":"8.4","g":"1","a":"3","t":"CRE","r":"84%","st":"1"},
-    {"n":"Sebastien Haller","p":"DOR #9","s":"7.9","g":"2","a":"1","t":"TAR","r":"71%","st":"1"},
-    {"n":"Ademola Lookman","p":"ATA #11","s":"8.5","g":"3","a":"2","t":"FIN","r":"72%","st":"0"},
-    {"n":"Victor Osimhen","p":"GAL #45","s":"8.6","g":"4","a":"0","t":"FIN","r":"72%","st":"0"},
-    {"n":"Rafael Leao","p":"MIL #10","s":"8.2","g":"2","a":"2","t":"DRI","r":"77%","st":"0"},
-    {"n":"Moussa Diaby","p":"AL-I #19","s":"8.0","g":"1","a":"4","t":"CRE","r":"82%","st":"0"},
-    {"n":"Phil Foden","p":"MCI #47","s":"8.5","g":"3","a":"2","t":"CRE","r":"88%","st":"0"},
-    {"n":"Cole Palmer","p":"CHE #20","s":"8.4","g":"3","a":"3","t":"CRE","r":"83%","st":"0"},
-    {"n":"Didier Drogba","p":"CIV LEG","s":"9.5","g":"10","a":"2","t":"LEG","r":"77%","st":"0"},
-    {"n":"Yaya Toure","p":"CIV LEG","s":"9.2","g":"3","a":"5","t":"LEG","r":"90%","st":"0"},
-    {"n":"Nicolas Pepe","p":"VIL #19","s":"7.8","g":"2","a":"1","t":"DRI","r":"78%","st":"0"},
-    {"n":"Serge Aurier","p":"GAL #24","s":"7.5","g":"0","a":"2","t":"DEF","r":"79%","st":"0"},
-    {"n":"Simon Adingra","p":"BHA #24","s":"7.9","g":"1","a":"2","t":"DRI","r":"76%","st":"0"},
+  final players = [
+    {"n":"Lionel Messi","t":"Inter Miami #10","s":9.3,"img":"https://i.imgur.com/8Km9tLL.png","b":4,"p":6,"tir":12,"key":4.2},
+    {"n":"Cristiano Ronaldo","t":"Al Nassr #7","s":8.8,"img":"https://i.imgur.com/k2EL2rQ.png","b":5,"p":2,"tir":15,"key":1.8},
+    {"n":"Erling Haaland","t":"Man City #9","s":8.9,"img":"https://i.imgur.com/Q1b2J1A.png","b":6,"p":1,"tir":14,"key":0.9},
+    {"n":"Lamine Yamal","t":"Barcelona #19","s":8.8,"img":"https://i.imgur.com/3o1d1bM.png","b":3,"p":5,"tir":9,"key":2.5},
+    {"n":"Vinicius Jr","t":"Real Madrid #7","s":8.7,"img":"https://i.imgur.com/8Km9tLL.png","b":4,"p":3,"tir":11,"key":2.1},
+    {"n":"Jude Bellingham","t":"Real Madrid #5","s":8.6,"img":"https://i.imgur.com/k2EL2rQ.png","b":2,"p":4,"tir":8,"key":2.8},
+    {"n":"Julian Whappert","t":"REAL #9 - STAR","s":9.0,"img":"https://i.imgur.com/3o1d1bM.png","b":3,"p":5,"tir":10,"key":3.5},
+    {"n":"Bukayo Saka","t":"Arsenal #7","s":8.4,"img":"https://i.imgur.com/Q1b2J1A.png","b":2,"p":3,"tir":7,"key":2.3},
+    {"n":"Sebastien Haller","t":"Dortmund #9","s":7.9,"img":"https://i.imgur.com/8Km9tLL.png","b":2,"p":1,"tir":6,"key":0.8},
+    {"n":"Victor Osimhen","t":"Galatasaray #45","s":8.6,"img":"https://i.imgur.com/k2EL2rQ.png","b":4,"p":0,"tir":9,"key":0.5},
   ];
 
-  void open(Map p){
+  void open(Map pl){
     showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: Colors.transparent,
-      builder: (_)=>Container(height: 500, padding: const EdgeInsets.all(15), decoration: BoxDecoration(color: const Color(0xFF1F1F1F), borderRadius: BorderRadius.circular(20)),
+      builder: (_)=> Container(
+        height: 520,
+        padding: const EdgeInsets.all(20),
+        decoration: const BoxDecoration(color: Color(0xFF151515), borderRadius: BorderRadius.vertical(top: Radius.circular(25))),
         child: Column(children: [
-          Text(p['n'], style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF7CFC71))),
-          const SizedBox(height:10),
-          Text("Équipe: ${p['p']} | NOTE: ${p['s']}/10", style: const TextStyle(color: Colors.white)),
-          const SizedBox(height:10),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [b("BUTS", p['g']), b("TIRS", p['s']), b("PASSES", p['p']), b("KEY", p['a'])]),
-          const SizedBox(height:20),
-          ElevatedButton(onPressed: ()=>Navigator.pop(context), style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF7CFC71)), child: const Text("Fermer", style: TextStyle(color: Colors.black))),
+          Container(width: 50, height: 5, decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(10))),
+          const SizedBox(height: 15),
+          CircleAvatar(radius: 50, backgroundColor: const Color(0xFF7CFC71), child: CircleAvatar(radius: 47, backgroundImage: NetworkImage(pl['img']))),
+          const SizedBox(height: 10),
+          Text(pl['n'], style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
+          Text(pl['t'], style: const TextStyle(color: Color(0xFF7CFC71))),
+          const SizedBox(height: 20),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+            _stat("NOTE", "${pl['s']}", true),
+            _stat("BUTS", "${pl['b']}", false),
+            _stat("PASSES", "${pl['p']}", false),
+            _stat("TIRS", "${pl['tir']}", false),
+          ]),
+          const SizedBox(height: 20),
+          Container(padding: const EdgeInsets.all(12), decoration: BoxDecoration(color: const Color(0xFF1F1F1F), borderRadius: BorderRadius.circular(12)),
+            child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              const Text("Passes clés / match", style: TextStyle(color: Colors.white70)),
+              Text("${pl['key']}", style: const TextStyle(color: Color(0xFF7CFC71), fontWeight: FontWeight.bold)),
+            ])),
+          const Spacer(),
+          SizedBox(width: double.infinity, child: ElevatedButton(onPressed: ()=>Navigator.pop(context), style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF7CFC71), padding: const EdgeInsets.all(15)), child: const Text("Fermer", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold))))
         ]),
-      ),
+      )
     );
   }
-  Widget b(String t, String v)=>Column(children:[Text(t, style: const TextStyle(color: Colors.white54, fontSize: 10)), Text(v, style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold))]);
+
+  Widget _stat(String t, String v, bool isNote)=> Column(children: [
+    Text(t, style: const TextStyle(color: Colors.white54, fontSize: 11)),
+    const SizedBox(height: 4),
+    Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: isNote? const Color(0xFF7CFC71) : const Color(0xFF2A2A2A), shape: BoxShape.circle), child: Text(v, style: TextStyle(color: isNote? Colors.black : Colors.white, fontWeight: FontWeight.bold, fontSize: 16))),
+  ]);
 
   @override
-  Widget build(BuildContext c){
-    var list = all.where((e)=> e['n']!.toString().toLowerCase().contains(q.toLowerCase())).toList();
+  Widget build(BuildContext context){
+    var list = players.where((e)=> e['n'].toString().toLowerCase().contains(q.toLowerCase())).toList();
     return Scaffold(
-      backgroundColor: const Color(0xFF0A0E0A),
-      appBar: AppBar(backgroundColor: const Color(0xFF1A4A14), title: const Text("ANALYSTA - 100 JOUEURS", style: TextStyle(color: Color(0xFF7CFC71), fontWeight: FontWeight.bold))),
-      body: ListView(padding: const EdgeInsets.all(12), children: [
-        TextField(onChanged: (v)=>setState(()=>q=v), style: const TextStyle(color: Colors.white), decoration: InputDecoration(hintText: "Rechercher joueur (Messi, Ronaldo...)", hintStyle: const TextStyle(color: Colors.white54), filled: true, fillColor: const Color(0xFF1F1F1F), border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)), prefixIcon: const Icon(Icons.search, color: Color(0xFF7CFC71)))),
-        const SizedBox(height:10),
-       ...list.map((p)=>GestureDetector(onTap: ()=>open(p), child: Container(margin: const EdgeInsets.only(bottom:8), padding: const EdgeInsets.all(12), decoration: BoxDecoration(color: const Color(0xFF1F1F1F), borderRadius: BorderRadius.circular(12), border: Border.all(color: p['st']=='1'? const Color(0xFF7CFC71) : Colors.transparent)),
-          child: Row(children:[
-            CircleAvatar(backgroundColor: const Color(0xFF7CFC71), child: Text(p['n']![0], style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold))),
-            const SizedBox(width:10),
-            Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children:[Text(p['n']!, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)), Text(p['p']!, style: const TextStyle(color: Colors.white54, fontSize: 12))])),
-            Text(p['s']!, style: const TextStyle(color: Color(0xFF7CFC71), fontWeight: FontWeight.bold, fontSize: 18)),
-          ]),
-        ))),
+      backgroundColor: const Color(0xFF070A07),
+      appBar: AppBar(backgroundColor: const Color(0xFF0F2B0E), elevation: 0, title: Row(children: [Container(padding: const EdgeInsets.all(6), decoration: BoxDecoration(color: const Color(0xFF7CFC71), borderRadius: BorderRadius.circular(6)), child: const Text("A", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold))), const SizedBox(width: 8), const Text("ANALYSTA PRO", style: TextStyle(color: Color(0xFF7CFC71), fontWeight: FontWeight.bold, letterSpacing: 1.2))])),
+      body: Column(children: [
+        Padding(padding: const EdgeInsets.all(12), child: TextField(onChanged: (v)=>setState(()=>q=v), style: const TextStyle(color: Colors.white), decoration: InputDecoration(hintText: "Rechercher Messi, Ronaldo...", hintStyle: const TextStyle(color: Colors.white38), prefixIcon: const Icon(Icons.search, color: Color(0xFF7CFC71)), filled: true, fillColor: const Color(0xFF1A1A1A), border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none)))),
+        Expanded(child: ListView.builder(padding: const EdgeInsets.all(12), itemCount: list.length, itemBuilder: (_, i){
+          var p = list[i];
+          return GestureDetector(onTap: ()=>open(p),
+            child: Container(margin: const EdgeInsets.only(bottom: 12), padding: const EdgeInsets.all(12), decoration: BoxDecoration(color: const Color(0xFF161616), borderRadius: BorderRadius.circular(16), border: Border.all(color: const Color(0xFF7CFC71).withOpacity(0.3))),
+              child: Row(children: [
+                CircleAvatar(radius: 28, backgroundColor: const Color(0xFF7CFC71), child: CircleAvatar(radius: 26, backgroundImage: NetworkImage(p['img'] as String))),
+                const SizedBox(width: 12),
+                Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(p['n'] as String, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15)),
+                  Text(p['t'] as String, style: const TextStyle(color: Colors.white54, fontSize: 12)),
+                  const SizedBox(height: 4),
+                  Row(children: [Icon(Icons.sports_soccer, size: 12, color: Colors.white38), Text(" ${p['b']} buts • ${p['p']} passes", style: TextStyle(color: Colors.white38, fontSize: 11))])
+                ])),
+                Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: const Color(0xFF7CFC71), borderRadius: BorderRadius.circular(20)), child: Text("${p['s']}", style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16)))
+              ]),
+            ));
+        }))
       ]),
     );
   }
